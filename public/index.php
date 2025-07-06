@@ -7,7 +7,8 @@ use App\controllers\RegisterController;
 $router = new Router();
 
 $router->get("/", [RegisterController::class, "create"]);
-$router->get("/store", [RegisterController::class, "store"]);
+$router->get("/register", [RegisterController::class, "create"]);
+$router->post("/register", [RegisterController::class, "store"]);
 
 $router->resolve();
 ?>

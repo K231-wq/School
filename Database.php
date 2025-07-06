@@ -28,5 +28,22 @@ class Database{
             echo "User Schema: " . $e->getMessage();
         }
     }
+
+    public function createData($data){
+        $error = '';
+        try{
+            $sql = "INSERT INTO user (name, email, imagePath, password)
+                    VALUES (:name, :email, :imagePath, :password)";
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":name", $data['name']);
+            $statement->bindValue(':email', $data['email']);
+            $statement->bindValue('imagePath', $data['imagePath']);
+            $statement->bindValue(':password', $data['password']);
+            $statement->execute();
+        }catch(Exception $e){
+            $error = "Insert User: " . $e->getMessage();
+        }
+        return $error;
+    }
 }
 ?>

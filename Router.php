@@ -18,15 +18,19 @@ class Router{
 
     public function resolve(){
         $currentUrl = $_SERVER['REQUEST_URI'] ?? null;
+
         if(strpos($currentUrl, '?') !== false){
             $currentUrl = substr($currentUrl, 0, strpos($currentUrl, '?'));
         }
+
         $method = $_SERVER['REQUEST_METHOD'] ?? null;
+
         if($method === 'GET'){
             $fn = $this->getRoutes[$currentUrl] ?? null;
         }else {
-            $fn = $this->getRoutes[$currentUrl] ?? null;
+            $fn = $this->postRoutes[$currentUrl] ?? null;
         }
+
         if($fn){
             if(is_array($fn)){
                 $controller = new $fn[0]();
@@ -40,12 +44,13 @@ class Router{
             echo "Page is not Found!!";
         }
     }
-    public function view($param = []){
+    
+    public function view($view, $param = []){
         foreach($param as $key => $value){
             $$key = $value;
         }
         ob_start();
-        include_once __DIR__.'';
+        include_once __DIR__."/view/$view.php";
     }
 }
 ?>
