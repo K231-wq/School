@@ -51,6 +51,7 @@
               const messageBox = document.querySelector('.messageBox');
               setTimeout(() => {
                 messageBox.style.display = "none";
+                window.location.href = "/login";
               }, 3000);
             </script>
           </div>

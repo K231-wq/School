@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   //Live Name, email and password
-  function liveValidate(input, validateFn){
+  function liveValidate(input, validateFn) {
     input.addEventListener('input', () => {
       const isValid = validateFn(input.value);
       input.classList.toggle('is-valid', isValid);
@@ -69,16 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   liveValidate(nameInput, (val) => val.trim().length > 0);
   liveValidate(emailInput, (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
-  liveValidate(passwordInput, (val) => 
+  liveValidate(passwordInput, (val) =>
     val.length >= 8 &&
     /[A-Z]/.test(val) &&
     /[a-z]/.test(val) &&
     /[0-9]/.test(val) &&
-    /[!@#$%^&*(),."|{}<>]/.test(val) 
+    /[!@#$%^&*(),."|{}<>]/.test(val)
   );
 
   //live imageFile check
-  function validateImageInput(){
+  function validateImageInput() {
     const file = imageInput.files[0];
     const isValid = file && file.size > 0;
 
@@ -98,13 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
       name: nameInput.value.trim().length > 0,
       email: emailInput.validity.valid,
       password: passwordInput.value.length >= 8 &&
-                /[A-Z]/.test(passwordInput.value) &&
-                /[a-z]/.test(passwordInput.value) &&
-                /[0-9]/.test(passwordInput.value) &&
-                /[!@#$%^&*(),.":{}|<>]/.test(passwordInput.value),
+        /[A-Z]/.test(passwordInput.value) &&
+        /[a-z]/.test(passwordInput.value) &&
+        /[0-9]/.test(passwordInput.value) &&
+        /[!@#$%^&*(),.":{}|<>]/.test(passwordInput.value),
       passwordConfirmation: confirmPasswordInput.value.length > 0 &&
-                            confirmPasswordInput.value === passwordInput.value &&
-                            passwordInput.value.length >= 8,
+        confirmPasswordInput.value === passwordInput.value &&
+        passwordInput.value.length >= 8,
       image: validateImageInput(),
     }
 
@@ -123,8 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const allValid = Object.values(validations).every(v => v === true);
 
-    if(allValid){
+    if (allValid) {
       form.submit();
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 3000);
     }
   });
   //submit form handler [error at image file handler is always happened [ is-valid ]]
@@ -162,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //   }else{
   //     passwordInput.classList.remove("is-invalid");
   //   }
-    
+
   //   //password confirmation validate
   //   if(confirmPasswordInput.value != passwordInput.value){
   //     confirmPasswordInput.classList.add("is-invalid");
@@ -184,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //     form.classList.add('was-validated');
   //     return;
   //   }
-    
+
   //   if(valid){
   //     form.submit();
   //   }

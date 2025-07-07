@@ -45,5 +45,17 @@ class Database{
         }
         return $error;
     }
+
+    public function getUser($email){
+        try{
+            $sql = "SELECT * FROM user WHERE email = :email";
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":email", $email);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }catch(Exception $e){
+            echo "Get User Fetch: " . $e->getMessage();
+        }
+    }
 }
 ?>

@@ -5,6 +5,14 @@ use App\Router;
 use App\helpers\RandomKeys;
 class RegisterController{
 
+    public function __construct(){
+        session_start();
+        if(isset($_SESSION['User'])){
+            unset($_SESSION['User']);
+            session_destroy();
+        }
+    }
+
     public function create(Router $router){
         $router->db->userSchema();
         $router->view("/auth/register", []);
