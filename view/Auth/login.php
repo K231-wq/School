@@ -52,7 +52,7 @@
                             setTimeout(() => {
                                 successBox.style.display = "none";
                                 window.location.href = "/profile/user";
-                            }, 3000);
+                            }, 1000);
                         </script>
                     </div>
                 <?php endif; ?>

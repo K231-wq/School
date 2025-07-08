@@ -44,22 +44,26 @@
           <div id="matchError" class="invalid-feedback">Passwords do not match.</div>
         </div>
 
-        <?php if(!empty($message)): ?>
+        <?php if(!empty($messages)): ?>
           <div class="messageBox">
-            <p class="resultMessage"><?php echo $message; ?></p>
+            <?php foreach($messages as $message):?>
+              <p class="resultMessage"><?php echo $message; ?></p>
+            <?php endforeach; ?>
             <script>
               const messageBox = document.querySelector('.messageBox');
               setTimeout(() => {
                 messageBox.style.display = "none";
                 window.location.href = "/login";
-              }, 3000);
+              }, 1000);
             </script>
           </div>
         <?php endif; ?>
         
-        <?php if(!empty($error)): ?>
+        <?php if(!empty($errors)): ?>
           <div class="errorBox">
-            <p class="errorMessage"><?php echo $error; ?></p>
+            <?php foreach($errors as $error):?>
+              <p class="errorMessage"><?php echo $error; ?></p>
+            <?php endforeach; ?>
             <script>
               const errorBox = document.querySelector('.errorBox');
               setTimeout(() => {

@@ -18,8 +18,8 @@ class RegisterController{
         $router->view("/auth/register", []);
     }
     public function store(Router $router){
-        $erorr = '';
-        $messages = '';
+        $errors = [];
+        $messages = [];
         $user = [
             'name' => '',
             'email' => '',
@@ -39,19 +39,26 @@ class RegisterController{
                 mkdir(__DIR__.'/../public/images');
             }
 
-            if($image && $image['tmp_name']){
-                $imagePath = 'images/'.RandomKeys::generate(8).'_'.$image['name'];
-                $absolutePath = __DIR__.'/../public/'.$imagePath;
-                move_uploaded_file($image['tmp_name'], $absolutePath);
-            }
-            $user['imagePath'] = $imagePath;
-            $error = $router->db->createData($user);
-            if(empty($errors)){
-                $message = "Sccessfully User Account is created";
+            $isUserExist = $router->db->getUser($user['email']);
+            if(!$isUserExist){
+                if($image && $image['tmp_name']){
+                    $imagePath = 'images/'.RandomKeys::generate(8).'_'.$image['name'];
+                    $absolutePath = __DIR__.'/../public/'.$imagePath;
+                    move_uploaded_file($image['tmp_name'], $absolutePath);
+                }
+                $user['imagePath'] = $imagePath;
+                $error = $router->db->createData($user);
+                if ($error) {
+                    $errors[] = $error;
+                } else {
+                    $messages[] = "Successfully User Account is created";
+                }
+            }else{
+                $errors[] = "User has already register an Account!";
             }
             $router->view('/auth/register', [
-                "error" => $error,
-                "message" => $message 
+                "errors" => $errors,
+                "messages" => $messages 
             ]);
         }
     }

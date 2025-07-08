@@ -1,6 +1,7 @@
 <?php 
 namespace App\controllers;
 
+use App\controllers\auth\Authentication;
 use App\Router;
 class SessionController {
     public function create(Router $router){
@@ -16,12 +17,14 @@ class SessionController {
 
             $user = $router->db->getUser($email);
             if($user){
-                // echo '<pre>';
-                // var_dump($user);
-                // echo '</pre>';
                 if(password_verify($password, $user['password'])){
+                    $token = Authentication::createJWT([
+                        'id' => $user['id'],
+                        'email' => $user['email'],
+                        'name' => $user['name']
+                    ]);
                     $_SESSION['User'] = [
-                        "email"=> $user["email"],
+                        "token"=> "Bearer ".$token,
                     ];
                     $messages[] = "Successfully Login the account😍😍";
                 }else{

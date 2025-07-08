@@ -45,12 +45,14 @@ class Router{
         }
     }
     
-    public function view($view, $param = []){
-        foreach($param as $key => $value){
+    public function view($view, $params = []){
+        foreach($params as $key => $value){
             $$key = $value;
         }
         ob_start();
         include_once __DIR__."/view/$view.php";
+        $content = ob_get_clean();
+        echo $content;  
     }
 }
 ?>

@@ -11,5 +11,8 @@
       "email": "minthetkhaing.013@gmail.com"
     }
   ],
-  "require": {}
+  "require": {
+    "firebase/php-jwt": "^6.11",
+    "vlucas/phpdotenv": "^5.6"
+  }
 }

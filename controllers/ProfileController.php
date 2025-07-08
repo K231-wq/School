@@ -2,6 +2,7 @@
 
 namespace App\controllers;
 
+use App\controllers\auth\Authentication;
 use App\Router;
 
 session_start();
@@ -15,8 +16,14 @@ class ProfileController{
         if(!$user){
             header("Refresh: 3; url=/login");
         }
+        if(!str_starts_with($user['token'], 'Bearer ')){
+            header("Refresh: 3; url=/login");
+        }
+        // var_dump($user);
+        $token = str_replace('Bearer ', '', $user['token']);
+        $payload = Authentication::verifyJWT($token);
         $router->view("profile/userProfile", [
-            "user" => $user,
+            "user" => $payload,
         ]);
     }
     public function store(){
