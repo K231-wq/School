@@ -20,7 +20,8 @@ class Database{
                 name varchar(255) NOT NULL,
                 email varchar(255) NOT NULL UNIQUE,
                 imagePath LONGTEXT NOT NULL,
-                password varchar(255) NOT NULL
+                password varchar(255) NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )";
             $statement = $this->pdo->prepare($sql);
             $statement->execute();

@@ -51,8 +51,7 @@ class Router{
         }
         ob_start();
         include_once __DIR__."/view/$view.php";
-        $content = ob_get_clean();
-        echo $content;  
+        // return ob_get_clean();
     }
 }
 ?>
