@@ -20,5 +20,6 @@ $router->get('/login', [SessionController::class, 'create']);
 $router->post('/login', [SessionController::class, 'store']);
 
 $router->get('/profile/user', [ProfileController::class, 'create']);
+$router->get('/logout', [ProfileController::class, 'logout']);
 $router->resolve();
 ?>

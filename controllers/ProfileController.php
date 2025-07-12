@@ -29,5 +29,13 @@ class ProfileController{
     public function store(){
 
     }
+    public function logout(){
+        if(isset($_SESSION['User'])){
+            unset($_SESSION['User']);
+            session_unset();
+            session_destroy();
+            header("Location: /login");
+        }
+    }
 }
 ?>
